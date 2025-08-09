@@ -1,0 +1,345 @@
+:root {
+  --glass-bg-color: rgba(25, 25, 30, 0.2);
+  --glass-highlight: rgba(255, 255, 255, 0.2);
+  --text-primary: #f5f5f7;
+  --text-secondary: #a1a1a6;
+}
+:global(body) {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #111;
+  color: var(--text-primary);
+  overflow-x: hidden;
+  position: relative;
+}
+:global(body)::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url("https://i.pinimg.com/originals/ca/ca/37/caca37e52059795473bbeef00343faae.gif");
+  background-size: cover;
+  background-position: center;
+  animation: bg-zoom 15s ease-in-out infinite alternate;
+}
+@keyframes bg-zoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+.main {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+.glassContainer {
+  position: relative;
+  background: transparent;
+  border-radius: 980px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  width: auto;
+  display: inline-block;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+.glassContainer:hover {
+  transform: scale(1.03);
+}
+.glassFilter,
+.glassOverlay,
+.glassSpecular {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.glassFilter {
+  z-index: 0;
+  backdrop-filter: blur(2px);
+  filter: url(#lensFilter);
+}
+.glassOverlay {
+  z-index: 1;
+  background: var(--glass-bg-color);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s;
+}
+.glassContainer:hover .glassOverlay {
+  background: rgba(35, 35, 40, 0.3);
+}
+.glassSpecular {
+  z-index: 2;
+  background: none;
+  box-shadow: inset 0px 1px 1px var(--glass-highlight);
+}
+.glassContent {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  box-sizing: border-box;
+}
+.headerNav .glassContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 2rem;
+  gap: 2rem;
+}
+.appleLogo svg {
+  width: 20px;
+  height: 20px;
+  color: var(--text-primary);
+  transition: transform 0.3s;
+  vertical-align: middle;
+  line-height: 1;
+  display: inline-block;
+}
+.appleLogo:hover svg {
+  transform: scale(1.1);
+}
+.navLinks {
+  display: flex;
+  gap: 2rem;
+}
+.navLinks a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: opacity 0.3s;
+  opacity: 0.9;
+}
+.navLinks a:hover {
+  opacity: 1;
+}
+.heroContent {
+  max-width: 800px;
+}
+.heroContent h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.5px;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+.subtitleGlass {
+  margin: 1rem 0 2rem 0;
+}
+.subtitleGlass .glassContent {
+  padding: 0.5rem 1.5rem;
+}
+.subtitleGlass h2 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0;
+}
+.ctaButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.ctaButton::before,
+.ctaButton::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  box-sizing: border-box;
+  border-radius: inherit;
+}
+.ctaButton::before {
+  top: -1.5px;
+  right: -1.5px;
+  border-top: 1.5px solid transparent;
+  border-right: 1.5px solid transparent;
+  transition: width 0.15s ease-out, height 0.15s ease-out 0.15s;
+}
+.ctaButton::after {
+  bottom: -1.5px;
+  left: -1.5px;
+  border-bottom: 1.5px solid transparent;
+  border-left: 1.5px solid transparent;
+  transition: width 0.15s ease-out, height 0.15s ease-out 0.15s;
+}
+.ctaButton:hover::before,
+.ctaButton:hover::after {
+  width: calc(100% + 3px);
+  height: calc(100% + 3px);
+  border-color: rgba(255, 255, 255, 0.75);
+}
+.buttonText {
+  display: block;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  position: relative;
+  z-index: 3;
+}
+@media (min-width: 768px) {
+  .heroContent h1 { font-size: 4.5rem; }
+  .subtitleGlass h2 { font-size: 1.5rem; }
+  .navLinks a { font-size: 0.9rem; }
+}
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.show {
+  opacity: 1;
+  visibility: visible;
+}
+.popupContent {
+  position: relative;
+  max-width: 450px;
+  width: 90%;
+  margin: 2rem;
+  animation: popupSlide 0.5s ease-out;
+}
+@keyframes popupSlide {
+  from { opacity: 0; transform: translateY(-30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.popupGlass {
+  background: rgba(30, 30, 35, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+.popupHeader {
+  padding: 2rem 2rem 1rem 2rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.popupHeader h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 3s ease infinite;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.popupHeader p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+.popupBody {
+  padding: 1.5rem 2rem 2rem 2rem;
+  text-align: center;
+}
+.popupButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.popupBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 12px 24px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 25px;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.popupBtn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+.popupBtn:hover::before {
+  left: 100%;
+}
+.followBtn:hover {
+  border-color: #4ecdc4;
+  background: rgba(78, 205, 196, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(78, 205, 196, 0.2);
+}
+.starBtn:hover {
+  border-color: #ffd93d;
+  background: rgba(255, 217, 61, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 217, 61, 0.2);
+}
+.closeBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+.closeBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  transform: rotate(90deg);
+}
+@media (max-width: 480px) {
+  .popupButtons { flex-direction: column; align-items: stretch; }
+  .popupBtn { justify-content: center; }
+}
