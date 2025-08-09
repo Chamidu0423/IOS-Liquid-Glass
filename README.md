@@ -39,6 +39,9 @@ Experience a smooth, fluid glass UI just like on iOS!
    ```
    The component will be available at `http://localhost:3000`.
 
+   **If you need html/css version you can download it from initial commitments:)**
+   [Click Here✨](https://github.com/Chamidu0423/IOS-Liquid-Glass/tree/9ccc69606750c941ce0a6402dfb88c24a96d9ca4)
+
 
 ## How It Works
 
